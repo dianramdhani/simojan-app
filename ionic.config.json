@@ -1,0 +1,7 @@
+{
+  "name": "simojan-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
