@@ -58,4 +58,8 @@ export class DeviceService {
     return this.bluetoothSerial.disconnect()
       .then(() => this.notificationService.toast('Device disconnected.'));
   }
+
+  send(command: string) {
+    return this.bluetoothSerial.write(command).then(() => this.notificationService.toast(`COMMAND SUCCESS - ${command}`));
+  }
 }
