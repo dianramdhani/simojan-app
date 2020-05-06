@@ -21,6 +21,9 @@
     "paths": {
       "@data/*": [
         "app/data/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
       ]
     }
   },

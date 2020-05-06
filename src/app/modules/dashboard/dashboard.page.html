@@ -7,6 +7,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <form [formGroup]="formSetupDevice">
+    <ion-list *ngIf="listBluetoothObs | async as listBluetooth">
+      <ion-item lines="none">
+        <ion-label position="float">Setup Device</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Select Bluetooth</ion-label>
+        <ion-select interface="action-sheet" formControlName="bluetooth">
+          <ion-select-option *ngFor="let bluetooth of listBluetooth" [value]="bluetooth">
+            {{ bluetooth.name }} - {{ bluetooth.address }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-top">
+        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!formSetupDevice.valid"
+          (click)="connect()">
+          Connect
+        </ion-button>
+      </div>
+      <div class="ion-padding-horizontal ion-padding-top">
+        <ion-button expand="block" type="submit" class="ion-no-margin" (click)="disconnect()">
+          Disconnect
+        </ion-button>
+      </div>
+    </ion-list>
+  </form>
 </ion-content>

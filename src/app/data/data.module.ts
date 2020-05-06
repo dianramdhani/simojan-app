@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 
 import { DeviceService } from './services/device.service';
 
@@ -9,7 +10,8 @@ import { DeviceService } from './services/device.service';
     CommonModule
   ],
   providers: [
-    DeviceService
+    DeviceService,
+    BluetoothSerial
   ]
 })
 export class DataModule { }
