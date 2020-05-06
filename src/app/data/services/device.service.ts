@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { from, Observable, Subject, BehaviorSubject, of } from 'rxjs';
+import { from, Observable, BehaviorSubject, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Bluetooth } from '@data/scheme/bluetooth';
 import { NotificationService } from '@shared/services/notification.service';
+import { DataSurvey } from '@data/scheme/data-survey';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeviceService {
-  lastDevice = new BehaviorSubject<Bluetooth>(null);
+  lastDevice = new Subject<Bluetooth>();
+  dataSurvey = new Subject<DataSurvey>();
 
   constructor(
     private bluetoothSerial: BluetoothSerial,
@@ -20,6 +22,14 @@ export class DeviceService {
   init() {
     this.bluetoothSerial.subscribe('\n')
       .subscribe(data => {
+        try {
+          const parse = JSON.parse(data);
+          console.log(parse);
+          this.dataSurvey.next(parse);
+        } catch (error) {
+          console.log('PARSING DATA SURVEY ERROR!', error);
+          this.notificationService.toast('PARSING DATA SURVEY ERROR!');
+        }
         console.log(data);
       });
   }

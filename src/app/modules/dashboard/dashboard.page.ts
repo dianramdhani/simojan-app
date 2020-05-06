@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -13,10 +13,10 @@ import { Bluetooth } from '@data/scheme/bluetooth';
 export class DashboardPage implements OnInit {
   listBluetoothObs: Observable<Bluetooth[]>;
   formSetupDevice: FormGroup;
-  loadingConnect = false;
 
   constructor(
-    private deviceService: DeviceService,
+    public deviceService: DeviceService,
+    private changeRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -33,6 +33,12 @@ export class DashboardPage implements OnInit {
       .subscribe(res => {
         if (res) {
           console.log(res);
+
+          this.deviceService.dataSurvey
+            .subscribe(res => {
+              console.log('ini loh data survey', res);
+              this.changeRef.detectChanges();
+            });
         }
       });
   }
