@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { DeviceService } from '@data/services/device.service';
 import { Bluetooth } from '@data/scheme/bluetooth';
+import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
   selector: 'app-device-disconnect',
@@ -16,6 +17,7 @@ export class DeviceDisconnectComponent implements OnInit {
 
   constructor(
     private deviceService: DeviceService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,13 @@ export class DeviceDisconnectComponent implements OnInit {
   }
 
   connect() {
-    const { bluetooth } = this.formSetupDevice.value
-    this.deviceService.connect(bluetooth).toPromise();
+    const { bluetooth } = this.formSetupDevice.value,
+      timer = setTimeout(() => this.notificationService.toast('Connect device failed. Please try again!'), 5000)
+    this.deviceService.connect(bluetooth).toPromise()
+      .then(connectStatus => {
+        if (connectStatus) {
+          clearTimeout(timer);
+        }
+      });
   }
 }
