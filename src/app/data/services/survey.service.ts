@@ -31,6 +31,10 @@ export class SurveyService {
     return this.deviceService.dataSurvey.asObservable();
   }
 
+  start() {
+    return this.deviceService.send('START\n');
+  }
+
   stop() {
     return this.deviceService.send('STOP\n');
   }

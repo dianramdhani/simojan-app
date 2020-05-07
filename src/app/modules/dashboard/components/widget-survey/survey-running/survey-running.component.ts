@@ -25,7 +25,7 @@ export class SurveyRunningComponent implements OnInit {
   }
 
   stop() {
-    const timer = setTimeout(() => this.notificationService.toast('Stop failed. Please try again!'), 5000)
+    const timer = setTimeout(() => this.notificationService.toast('Stop survey failed. Please try again!'), 5000)
     this.surveyService.stop()
       .subscribe(stopSucces => {
         if (stopSucces) {
