@@ -15,7 +15,7 @@ export class WidgetSurveyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let timer: NodeJS.Timer;
+    let timer: any;
     this.surveyService.isRunning()
       .subscribe(runningStatus => {
         this.ngZone.run(() => {
