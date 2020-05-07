@@ -8,6 +8,8 @@ import { DashboardPage } from './dashboard.page';
 import { WidgetDeviceComponent } from './components/widget-device/widget-device.component';
 import { DeviceDisconnectComponent } from './components/widget-device/device-disconnect/device-disconnect.component';
 import { DeviceConnectComponent } from './components/widget-device/device-connect/device-connect.component';
+import { WidgetSurveyComponent } from './components/widget-survey/widget-survey.component';
+import { SurveyRunningComponent } from './components/widget-survey/survey-running/survey-running.component';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { DeviceConnectComponent } from './components/widget-device/device-connec
     DashboardPage,
     WidgetDeviceComponent,
     DeviceDisconnectComponent,
-    DeviceConnectComponent
+    DeviceConnectComponent,
+    WidgetSurveyComponent,
+    SurveyRunningComponent
   ]
 })
 export class DashboardPageModule { }

@@ -13,8 +13,8 @@ import { DataSurvey } from '@data/scheme/data-survey';
 export class DeviceService {
   // last device di ambil dari localstorage
   private lastDevice = new BehaviorSubject<Bluetooth>(null);
-  dataSurvey = new Subject<DataSurvey>();
   private connectStatus = new BehaviorSubject<boolean>(false);
+  dataSurvey = new BehaviorSubject<DataSurvey>(null);
 
   constructor(
     private bluetoothSerial: BluetoothSerial,
@@ -74,7 +74,7 @@ export class DeviceService {
     return this.connectStatus.asObservable();
   }
 
-  getDeviceConnect(): Observable<Bluetooth>{
+  getDeviceConnect(): Observable<Bluetooth> {
     return this.lastDevice.asObservable();
   }
 

@@ -1,0 +1,29 @@
+<ion-card *ngIf="dataSurveyObs | async as dataSurvey">
+  <ion-card-header>
+    <ion-card-title>Survey Running</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>Time</ion-label>
+        <ion-text>{{ dataSurvey.ts }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Accelerometer</ion-label>
+        <ion-text>{{ dataSurvey.acc }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Internet Connection</ion-label>
+        <ion-text>{{ dataSurvey.conn }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>GPS Latitude</ion-label>
+        <ion-text>{{ dataSurvey.gps.lat }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>GPS Longitude</ion-label>
+        <ion-text>{{ dataSurvey.gps.lng }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
