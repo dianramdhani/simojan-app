@@ -1,9 +1,2 @@
 <app-survey-running *ngIf="runningStatus"></app-survey-running>
-<ion-card *ngIf="!runningStatus">
-    <ion-card-header>
-        <ion-card-title>Survey History</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-        No Survey
-    </ion-card-content>
-</ion-card>
+<app-create-survey *ngIf="!runningStatus && connectStatus"></app-create-survey>
