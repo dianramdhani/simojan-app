@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { from, Observable, BehaviorSubject, of, ReplaySubject, Subject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { from, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { catchError, tap, timeout } from 'rxjs/operators';
 
 import { Bluetooth } from '@data/scheme/bluetooth';
 import { NotificationService } from '@shared/services/notification.service';
@@ -13,6 +13,7 @@ import { DataSurvey } from '@data/scheme/data-survey';
 export class DeviceService {
   lastDevice = new Subject<Bluetooth>();
   dataSurvey = new Subject<DataSurvey>();
+  connectStatus = new ReplaySubject<boolean>();
 
   constructor(
     private bluetoothSerial: BluetoothSerial,
@@ -20,6 +21,18 @@ export class DeviceService {
   ) { }
 
   init() {
+    this.bluetoothSerial.isConnected()
+      .then(res => {
+        this.connectStatus.next(true)
+        console.log('DEVICE CONNECTED', res);
+        this.notificationService.toast('Device connected.');
+      })
+      .catch(err => {
+        this.connectStatus.next(false);
+        console.log('DEVICE DISCONNECTED', err);
+        this.notificationService.toast('Device disconnected.');
+      });
+
     this.bluetoothSerial.subscribe('\n')
       .subscribe(data => {
         try {
@@ -41,9 +54,11 @@ export class DeviceService {
   connect(bluetooth: Bluetooth) {
     return this.bluetoothSerial.connect(bluetooth.id)
       .pipe(
+        timeout(5000),
         tap(() => {
           this.notificationService.toast(`Connection success to ${bluetooth.name} - ${bluetooth.address}`)
           this.lastDevice.next(bluetooth);
+          this.connectStatus.next(true);
         }),
         catchError(err => {
           this.lastDevice.next(null);
@@ -56,7 +71,10 @@ export class DeviceService {
 
   disconnect() {
     return this.bluetoothSerial.disconnect()
-      .then(() => this.notificationService.toast('Device disconnected.'));
+      .then(() => {
+        this.connectStatus.next(false);
+        this.notificationService.toast('Device disconnected.');
+      });
   }
 
   send(command: string) {

@@ -7,6 +7,7 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
 import { WidgetDeviceComponent } from './components/widget-device/widget-device.component';
 import { DeviceDisconnectComponent } from './components/widget-device/device-disconnect/device-disconnect.component';
+import { DeviceConnectComponent } from './components/widget-device/device-connect/device-connect.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { DeviceDisconnectComponent } from './components/widget-device/device-dis
   declarations: [
     DashboardPage,
     WidgetDeviceComponent,
-    DeviceDisconnectComponent
+    DeviceDisconnectComponent,
+    DeviceConnectComponent
   ]
 })
 export class DashboardPageModule { }

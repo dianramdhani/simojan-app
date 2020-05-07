@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+
+import { DeviceService } from '@data/services/device.service';
 
 @Component({
   selector: 'app-widget-device',
@@ -6,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-device.component.scss'],
 })
 export class WidgetDeviceComponent implements OnInit {
+  connectStatus: boolean;
 
-  constructor() { }
+  constructor(
+    private deviceService: DeviceService,
+  ) { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.deviceService.connectStatus
+      .subscribe(res => {
+        this.connectStatus = res;
+      });
+  }
 }

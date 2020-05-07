@@ -1,0 +1,24 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Device Connected</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-text slot="end">99</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Address</ion-label>
+        <ion-text slot="end">aa:bb:cc:dd</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Status Internet</ion-label>
+        <ion-text slot="end">Connect | Disconnect | Unknown</ion-text>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" type="submit" color="danger" (click)="disconnect()">
+      Disconnect
+    </ion-button>
+  </ion-card-content>
+</ion-card>
