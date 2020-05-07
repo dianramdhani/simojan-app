@@ -3,14 +3,14 @@
     <ion-card-title>Device Connected</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-list>
+    <ion-list *ngIf="deviceObs | async as device">
       <ion-item>
         <ion-label>Name</ion-label>
-        <ion-text slot="end">99</ion-text>
+        <ion-text slot="end">{{ device.name }}</ion-text>
       </ion-item>
       <ion-item>
         <ion-label>Address</ion-label>
-        <ion-text slot="end">aa:bb:cc:dd</ion-text>
+        <ion-text slot="end">{{ device.address }}</ion-text>
       </ion-item>
       <ion-item>
         <ion-label>Status Internet</ion-label>

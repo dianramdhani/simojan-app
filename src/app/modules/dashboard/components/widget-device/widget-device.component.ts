@@ -16,9 +16,9 @@ export class WidgetDeviceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.deviceService.connectStatus
-      .subscribe(res => {
-        this.ngZone.run(() => this.connectStatus = res);
+    this.deviceService.isConnect()
+      .subscribe(connectStatus => {
+        this.ngZone.run(() => this.connectStatus = connectStatus);
       });
   }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { DeviceService } from '@data/services/device.service';
+import { Bluetooth } from '@data/scheme/bluetooth';
 
 @Component({
   selector: 'app-device-connect',
@@ -7,11 +10,15 @@ import { DeviceService } from '@data/services/device.service';
   styleUrls: ['./device-connect.component.scss'],
 })
 export class DeviceConnectComponent implements OnInit {
+  deviceObs: Observable<Bluetooth>
+
   constructor(
     private deviceService: DeviceService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.deviceObs = this.deviceService.getDeviceConnect();
+  }
 
   disconnect() {
     this.deviceService.disconnect();

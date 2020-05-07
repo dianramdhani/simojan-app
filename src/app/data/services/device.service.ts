@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { from, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { from, Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Bluetooth } from '@data/scheme/bluetooth';
@@ -11,9 +11,10 @@ import { DataSurvey } from '@data/scheme/data-survey';
   providedIn: 'root'
 })
 export class DeviceService {
-  lastDevice = new Subject<Bluetooth>();
+  // last device di ambil dari localstorage
+  private lastDevice = new BehaviorSubject<Bluetooth>(null);
   dataSurvey = new Subject<DataSurvey>();
-  connectStatus = new ReplaySubject<boolean>();
+  private connectStatus = new BehaviorSubject<boolean>(false);
 
   constructor(
     private bluetoothSerial: BluetoothSerial,
@@ -25,12 +26,12 @@ export class DeviceService {
       .then(res => {
         this.connectStatus.next(true)
         console.log('DEVICE CONNECTED', res);
-        this.notificationService.toast('Device connected.');
+        // this.notificationService.toast('Device connected.');
       })
       .catch(err => {
         this.connectStatus.next(false);
         console.log('DEVICE DISCONNECTED', err);
-        this.notificationService.toast('Device disconnected.');
+        // this.notificationService.toast('Device disconnected.');
       });
 
     this.bluetoothSerial.subscribe('\n')
@@ -69,11 +70,19 @@ export class DeviceService {
       );
   }
 
+  isConnect(): Observable<boolean> {
+    return this.connectStatus.asObservable();
+  }
+
+  getDeviceConnect(): Observable<Bluetooth>{
+    return this.lastDevice.asObservable();
+  }
+
   disconnect() {
     return this.bluetoothSerial.disconnect()
       .then(() => {
         this.connectStatus.next(false);
-        this.notificationService.toast('Device disconnected.');
+        // this.notificationService.toast('Device disconnected.');
       });
   }
 
