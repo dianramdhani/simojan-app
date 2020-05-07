@@ -3,7 +3,7 @@
     <ion-card-title>Device Connected</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-list *ngIf="deviceObs | async as device">
+    <ion-list *ngIf="deviceObs | async as device; else loading">
       <ion-item>
         <ion-label>Name</ion-label>
         <ion-text slot="end">{{ device.name }}</ion-text>
@@ -22,3 +22,7 @@
     </ion-button>
   </ion-card-content>
 </ion-card>
+
+<ng-template #loading>
+  Loading...
+</ng-template>

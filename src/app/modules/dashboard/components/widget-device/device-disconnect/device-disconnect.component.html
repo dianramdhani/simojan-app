@@ -4,7 +4,7 @@
   </ion-card-header>
   <ion-card-content>
     <form [formGroup]="formSetupDevice">
-      <ion-list *ngIf="listBluetoothObs | async as listBluetooth">
+      <ion-list *ngIf="listBluetoothObs | async as listBluetooth; else loading">
         <ion-item>
           <ion-label position="stacked">Select Bluetooth</ion-label>
           <ion-select interface="action-sheet" formControlName="bluetooth">
@@ -20,3 +20,7 @@
     </form>
   </ion-card-content>
 </ion-card>
+
+<ng-template #loading>
+  Loading...
+</ng-template>
