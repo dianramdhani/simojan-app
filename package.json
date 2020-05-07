@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ionic cap run android -l --address=172.20.10.6"
+    "dev": "ionic cap run android -l --address=172.20.10.6",
+    "deploy": "ionic cap copy android && ionic cap open android"
   },
   "private": true,
   "dependencies": {
