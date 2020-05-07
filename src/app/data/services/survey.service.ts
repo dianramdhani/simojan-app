@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, iif } from 'rxjs';
 
 import { DeviceService } from './device.service';
 import { DataSurvey } from '@data/scheme/data-survey';
@@ -13,28 +13,25 @@ export class SurveyService {
     private deviceService: DeviceService
   ) { }
 
-  isRunning(): Observable<boolean> {
-    const deviceHasDataSurvey = this.deviceService.dataSurvey.asObservable()
+  private dataSurveyChecker() {
+    return this.deviceService.dataSurvey.asObservable()
       .pipe(
-        map(data => {
-          console.log(data);
-          return data !== null ? true : false;
-        })
+        map(data => data !== null ? true : false)
       );
+  }
 
+  isRunning(): Observable<boolean> {
     return this.deviceService.isConnect()
       .pipe(
-        switchMap(statusConnection => {
-          if (statusConnection) {
-            return deviceHasDataSurvey
-          } else {
-            return of(false);
-          }
-        })
+        switchMap(statusConnection => iif(() => statusConnection, this.dataSurveyChecker(), of(false))),
       )
   }
 
   getData(): Observable<DataSurvey> {
     return this.deviceService.dataSurvey.asObservable();
+  }
+
+  stop() {
+    return this.deviceService.send('STOP\n');
   }
 }

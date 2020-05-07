@@ -15,9 +15,14 @@ export class WidgetSurveyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let timer: NodeJS.Timer;
     this.surveyService.isRunning()
       .subscribe(runningStatus => {
-        this.ngZone.run(() => this.runningStatus = runningStatus);
+        this.ngZone.run(() => {
+          clearTimeout(timer);
+          this.runningStatus = runningStatus;
+          timer = setTimeout(() => this.runningStatus = false, 5000);
+        });
       });
   }
 }

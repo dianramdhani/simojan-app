@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { DataSurvey } from '@data/scheme/data-survey';
 import { SurveyService } from '@data/services/survey.service';
+import { NotificationService } from '@shared/services/notification.service';
 
 @Component({
   selector: 'app-survey-running',
@@ -14,11 +15,22 @@ export class SurveyRunningComponent implements OnInit {
 
   constructor(
     private surveyService: SurveyService,
-    private changeRef: ChangeDetectorRef
+    private changeRef: ChangeDetectorRef,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
     this.dataSurveyObs = this.surveyService.getData();
     this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
+  }
+
+  stop() {
+    const timer = setTimeout(() => this.notificationService.toast('Stop failed. Please try again!'), 5000)
+    this.surveyService.stop()
+      .subscribe(stopSucces => {
+        if (stopSucces) {
+          clearTimeout(timer);
+        }
+      });
   }
 }

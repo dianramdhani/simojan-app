@@ -42,7 +42,7 @@ export class DeviceService {
           this.dataSurvey.next(parse);
         } catch (error) {
           console.log('PARSING DATA SURVEY ERROR!', error);
-          this.notificationService.toast('PARSING DATA SURVEY ERROR!');
+          // this.notificationService.toast('PARSING DATA SURVEY ERROR!');
         }
         console.log(data);
       });
@@ -86,7 +86,18 @@ export class DeviceService {
       });
   }
 
-  send(command: string) {
-    return this.bluetoothSerial.write(command).then(() => this.notificationService.toast(`COMMAND SUCCESS - ${command}`));
+  send(command: string): Observable<boolean> {
+    return from(this.bluetoothSerial.write(command))
+      .pipe(
+        catchError(err => {
+          this.notificationService.toast(`Command failed - ${err}`);
+          return of(false);
+        }),
+        map(res => {
+          // this.notificationService.toast(`Command '${command}' success - ${res}`)
+          console.log(`Command '${command}' success - ${res}`);
+          return true;
+        })
+      )
   }
 }

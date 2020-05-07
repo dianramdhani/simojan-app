@@ -24,6 +24,9 @@
         <ion-label>GPS Longitude</ion-label>
         <ion-text>{{ dataSurvey.gps.lng }}</ion-text>
       </ion-item>
+      <ion-button expand="block" color="danger" (click)="stop()">
+        Stop Survey
+      </ion-button>
     </ion-list>
   </ion-card-content>
 </ion-card>
