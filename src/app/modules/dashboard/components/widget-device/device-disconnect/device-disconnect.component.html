@@ -3,17 +3,17 @@
     <ion-card-title>Device Disconnect</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <form>
-      <ion-list>
+    <form [formGroup]="formSetupDevice">
+      <ion-list *ngIf="listBluetoothObs | async as listBluetooth">
         <ion-item>
           <ion-label position="stacked">Select Bluetooth</ion-label>
-          <ion-select interface="action-sheet">
-            <ion-select-option>
-              Testing - aa:bb:cc:dd
+          <ion-select interface="action-sheet" formControlName="bluetooth">
+            <ion-select-option *ngFor="let bluetooth of listBluetooth" [value]="bluetooth">
+              {{ bluetooth.name }} - {{ bluetooth.address }}
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button expand="block" type="submit">
+        <ion-button expand="block" type="submit" [disabled]="!formSetupDevice.valid" (click)="connect()">
           Connect
         </ion-button>
       </ion-list>

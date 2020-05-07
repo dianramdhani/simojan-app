@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { from, Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { catchError, tap, timeout } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { Bluetooth } from '@data/scheme/bluetooth';
 import { NotificationService } from '@shared/services/notification.service';
@@ -51,14 +51,14 @@ export class DeviceService {
     return from(this.bluetoothSerial.list());
   }
 
-  connect(bluetooth: Bluetooth) {
+  connect(bluetooth: Bluetooth): Observable<boolean> {
     return this.bluetoothSerial.connect(bluetooth.id)
       .pipe(
-        timeout(5000),
-        tap(() => {
-          this.notificationService.toast(`Connection success to ${bluetooth.name} - ${bluetooth.address}`)
+        map(() => {
+          // this.notificationService.toast(`Connection success to ${bluetooth.name} - ${bluetooth.address}`)
           this.lastDevice.next(bluetooth);
           this.connectStatus.next(true);
+          return true;
         }),
         catchError(err => {
           this.lastDevice.next(null);

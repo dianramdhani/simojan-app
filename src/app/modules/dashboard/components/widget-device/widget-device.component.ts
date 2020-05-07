@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 
 import { DeviceService } from '@data/services/device.service';
 
@@ -12,12 +12,13 @@ export class WidgetDeviceComponent implements OnInit {
 
   constructor(
     private deviceService: DeviceService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
     this.deviceService.connectStatus
       .subscribe(res => {
-        this.connectStatus = res;
+        this.ngZone.run(() => this.connectStatus = res);
       });
   }
 }
