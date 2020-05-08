@@ -1,0 +1,6 @@
+JSON receive:
+{"name":"Survey 1","ts":"2020-05-08T03:24:30Z","gps":{"lat":382,"lng":357},"acc":584,"conn":true}
+
+JSON send event:
+{"command":"SURVEY_START","data":{"name":"Survey 1"}}
+{"command":"SURVEY_STOP","data":{}}
