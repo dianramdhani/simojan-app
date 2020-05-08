@@ -31,11 +31,23 @@ export class SurveyService {
     return this.deviceService.dataSurvey.asObservable();
   }
 
-  start() {
-    return this.deviceService.send('START\n');
+  private messageGenerator(payload: {}) {
+    return `${JSON.stringify(payload)}\n`
+  }
+
+  start(name: string) {
+    const payload = {
+      command: 'SURVEY_START',
+      data: { name }
+    };
+    return this.deviceService.send(this.messageGenerator(payload));
   }
 
   stop() {
-    return this.deviceService.send('STOP\n');
+    const payload = {
+      command: 'SURVEY_STOP',
+      data: {}
+    };
+    return this.deviceService.send(this.messageGenerator(payload));
   }
 }
