@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Bluetooth } from '@data/scheme/bluetooth';
 import { NotificationService } from '@shared/services/notification.service';
 import { DataSurvey } from '@data/scheme/data-survey';
+import { StorageService } from '@shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,16 @@ export class DeviceService {
 
   constructor(
     private bluetoothSerial: BluetoothSerial,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private storageService: StorageService
   ) { }
 
   init() {
     this.bluetoothSerial.isConnected()
-      .then(res => {
-        this.connectStatus.next(true)
+      .then(async res => {
+        const lastDevice = await this.storageService.get(this.storageService.DEVICE_KEY);
+        this.lastDevice.next(lastDevice);
+        this.connectStatus.next(true);
         console.log('DEVICE CONNECTED', res);
         // this.notificationService.toast('Device connected.');
       })
@@ -59,6 +63,7 @@ export class DeviceService {
           // this.notificationService.toast(`Connection success to ${bluetooth.name} - ${bluetooth.address}`)
           this.lastDevice.next(bluetooth);
           this.connectStatus.next(true);
+          this.storageService.set(this.storageService.DEVICE_KEY, bluetooth);
           return true;
         }),
         catchError(err => {
@@ -79,9 +84,12 @@ export class DeviceService {
   }
 
   disconnect() {
+    console.log('ada yang manggil ga?');
     return this.bluetoothSerial.disconnect()
       .then(() => {
         this.connectStatus.next(false);
+        this.lastDevice.next(null);
+        this.storageService.remove(this.storageService.DEVICE_KEY);
         // this.notificationService.toast('Device disconnected.');
       });
   }
