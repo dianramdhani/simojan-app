@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { DeviceService } from '@data/services/device.service';
 import { Bluetooth } from '@data/scheme/bluetooth';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-device-connect',
@@ -13,14 +14,29 @@ export class DeviceConnectComponent implements OnInit {
   deviceObs: Observable<Bluetooth>
 
   constructor(
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.deviceObs = this.deviceService.getDeviceConnect();
   }
 
-  disconnect() {
-    this.deviceService.disconnect();
+  async disconnect() {
+    const alert = await this.alertController.create({
+      header: 'Disconnect Device',
+      message: 'Are you sure to disconnect this device?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Yes',
+          handler: () => this.deviceService.disconnect()
+        }
+      ]
+    });
+    alert.present();
   }
 }

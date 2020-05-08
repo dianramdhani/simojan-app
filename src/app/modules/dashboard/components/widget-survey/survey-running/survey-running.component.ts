@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DataSurvey } from '@data/scheme/data-survey';
 import { SurveyService } from '@data/services/survey.service';
 import { NotificationService } from '@shared/services/notification.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-survey-running',
@@ -16,7 +17,8 @@ export class SurveyRunningComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private changeRef: ChangeDetectorRef,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -24,13 +26,30 @@ export class SurveyRunningComponent implements OnInit {
     this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
   }
 
-  stop() {
-    const timer = setTimeout(() => this.notificationService.toast('Stop survey failed. Please try again!'), 5000)
-    this.surveyService.stop().toPromise()
-      .then(stopSucces => {
-        if (stopSucces) {
-          clearTimeout(timer);
+  async stop() {
+    const alert = await this.alertController.create({
+      header: 'Stop Survey',
+      message: 'Are you sure to stop this survey?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Yes',
+          handler: () => {
+            const timer = setTimeout(() => this.notificationService.toast('Stop survey failed. Please try again!'), 5000)
+            this.surveyService.stop().toPromise()
+              .then(stopSucces => {
+                if (stopSucces) {
+                  this.notificationService.toast('Stop survey in process. Please wait!');
+                  clearTimeout(timer);
+                }
+              });
+          }
         }
-      });
+      ]
+    });
+    alert.present();
   }
 }
