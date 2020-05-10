@@ -4,4 +4,6 @@ export class DataSurvey {
     gps: { lat: number, lng: number }
     acc: number
     conn: boolean
+    eventStatus: boolean
+    event: { name: string }
 }
