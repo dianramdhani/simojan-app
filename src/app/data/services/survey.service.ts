@@ -4,13 +4,15 @@ import { Observable, of, iif } from 'rxjs';
 
 import { DeviceService } from './device.service';
 import { DataSurvey } from '@data/scheme/data-survey';
+import { GeneratorService } from '@shared/services/generator.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
   constructor(
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private generatorService: GeneratorService
   ) { }
 
   private dataSurveyChecker() {
@@ -31,16 +33,12 @@ export class SurveyService {
     return this.deviceService.dataSurvey.asObservable();
   }
 
-  private messageGenerator(payload: {}) {
-    return `${JSON.stringify(payload)}\n`
-  }
-
   start(name: string) {
     const payload = {
       command: 'SURVEY_START',
       data: { name }
     };
-    return this.deviceService.send(this.messageGenerator(payload));
+    return this.deviceService.send(this.generatorService.message(payload));
   }
 
   stop() {
@@ -48,6 +46,6 @@ export class SurveyService {
       command: 'SURVEY_STOP',
       data: {}
     };
-    return this.deviceService.send(this.messageGenerator(payload));
+    return this.deviceService.send(this.generatorService.message(payload));
   }
 }
