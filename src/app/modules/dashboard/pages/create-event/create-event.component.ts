@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { EventService } from '@data/services/event.service';
+import { NotificationService } from '@shared/services/notification.service';
+
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
@@ -11,7 +14,9 @@ export class CreateEventComponent implements OnInit {
   formCreateEvent: FormGroup;
 
   constructor(
-    private modalController: ModalController
+    private modalController: ModalController,
+    private eventService: EventService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -22,8 +27,11 @@ export class CreateEventComponent implements OnInit {
 
   startEvent() {
     const { name } = this.formCreateEvent.value;
-    console.log(name, 'create event');
-    this.close();
+    this.eventService.start(name)
+      .subscribe(() => {
+        this.notificationService.toast('Event start success. Please wait for data event!')
+        this.close();
+      });
   }
 
   close() {

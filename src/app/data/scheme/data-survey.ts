@@ -5,5 +5,5 @@ export class DataSurvey {
     acc: number
     conn: boolean
     eventStatus: boolean
-    event: { name: string }
+    eventData: { name: string }
 }

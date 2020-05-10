@@ -13,8 +13,12 @@ export class EventService {
 
   }
 
-  start() {
-
+  start(name: string) {
+    const payload = {
+      command: 'EVENT_START',
+      data: { name }
+    };
+    return this.deviceService.send(JSON.stringify(payload));
   }
 
   stop() {
