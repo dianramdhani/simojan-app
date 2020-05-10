@@ -6,6 +6,7 @@ import { SurveyService } from '@data/services/survey.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { CreateEventComponent } from 'app/modules/dashboard/pages/create-event/create-event.component';
+import { EventService } from '@data/services/event.service';
 
 @Component({
   selector: 'app-survey-running',
@@ -13,19 +14,22 @@ import { CreateEventComponent } from 'app/modules/dashboard/pages/create-event/c
   styleUrls: ['./survey-running.component.scss'],
 })
 export class SurveyRunningComponent implements OnInit {
-  dataSurveyObs: Observable<DataSurvey>
+  dataSurveyObs: Observable<DataSurvey>;
+  eventStatusObs: Observable<boolean>;
 
   constructor(
     private surveyService: SurveyService,
     private changeRef: ChangeDetectorRef,
     private notificationService: NotificationService,
     private alertController: AlertController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private eventService: EventService
   ) { }
 
   ngOnInit() {
     this.dataSurveyObs = this.surveyService.getData();
     this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
+    this.eventStatusObs = this.eventService.isRunning();
   }
 
   async stop() {
