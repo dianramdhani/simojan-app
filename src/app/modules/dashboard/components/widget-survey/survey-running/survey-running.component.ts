@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { DataSurvey } from '@data/scheme/data-survey';
 import { SurveyService } from '@data/services/survey.service';
 import { NotificationService } from '@shared/services/notification.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { CreateEventComponent } from 'app/modules/dashboard/pages/create-event/create-event.component';
 
 @Component({
   selector: 'app-survey-running',
@@ -18,7 +19,8 @@ export class SurveyRunningComponent implements OnInit {
     private surveyService: SurveyService,
     private changeRef: ChangeDetectorRef,
     private notificationService: NotificationService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -51,5 +53,12 @@ export class SurveyRunningComponent implements OnInit {
       ]
     });
     alert.present();
+  }
+
+  async createEvent() {
+    const modal = await this.modalController.create({
+      component: CreateEventComponent
+    });
+    return await modal.present();
   }
 }
