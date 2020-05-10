@@ -32,6 +32,10 @@ export class EventService {
   }
 
   stop() {
-
+    const payload = {
+      command: 'EVENT_STOP',
+      data: {}
+    };
+    return this.deviceService.send(this.generatorService.message(payload));
   }
 }

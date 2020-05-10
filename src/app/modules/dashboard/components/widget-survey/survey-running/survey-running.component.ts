@@ -65,4 +65,31 @@ export class SurveyRunningComponent implements OnInit {
     });
     return await modal.present();
   }
+
+  async stopEvent() {
+    const alert = await this.alertController.create({
+      header: 'Stop Event',
+      message: 'Are you sure to stop this event?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Yes',
+          handler: () => {
+            const timer = setTimeout(() => this.notificationService.toast('Stop event failed. Please try again!'), 5000)
+            this.eventService.stop().toPromise()
+              .then(stopEventSucces => {
+                if (stopEventSucces) {
+                  this.notificationService.toast('Stop event in process. Please wait!');
+                  clearTimeout(timer);
+                }
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 }

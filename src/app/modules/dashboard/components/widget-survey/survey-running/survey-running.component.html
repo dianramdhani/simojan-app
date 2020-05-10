@@ -40,7 +40,7 @@
           <ion-text>{{ dataSurvey.eventData.name }}</ion-text>
         </ion-item>
       </ion-list>
-      <ion-button expand="block" color="danger">Stop Event</ion-button>
+      <ion-button expand="block" color="danger" (click)="stopEvent()">Stop Event</ion-button>
     </ng-container>
 
     <ion-button expand="block" color="danger" (click)="stop()">
