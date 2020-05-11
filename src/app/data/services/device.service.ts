@@ -57,6 +57,7 @@ export class DeviceService {
   }
 
   connect(bluetooth: Bluetooth): Observable<boolean> {
+    this.dataSurvey.next(null);
     return this.bluetoothSerial.connect(bluetooth.id)
       .pipe(
         map(() => {
@@ -84,7 +85,6 @@ export class DeviceService {
   }
 
   disconnect() {
-    console.log('ada yang manggil ga?');
     return this.bluetoothSerial.disconnect()
       .then(() => {
         this.connectStatus.next(false);

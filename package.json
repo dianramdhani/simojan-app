@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ionic cap run android -l --address=172.20.10.6",
+    "dev": "ionic cap run android -l --external --address=172.20.10.6",
     "deploy": "ionic build && ionic cap copy android && ionic cap open android",
     "connect": "adb kill-server && adb connect 172.20.10.13:5555"
   },

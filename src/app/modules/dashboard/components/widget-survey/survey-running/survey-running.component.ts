@@ -30,6 +30,7 @@ export class SurveyRunningComponent implements OnInit {
     this.dataSurveyObs = this.surveyService.getData();
     this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
     this.eventStatusObs = this.eventService.isRunning();
+    this.eventStatusObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
   }
 
   async stop() {

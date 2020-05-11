@@ -8,16 +8,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'dashboard-bak',
     loadChildren: () => import('./modules/dashboard-bak/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
     path: 'dashboard',
     loadChildren: () => import('./modules/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'surveys',
+    loadChildren: () => import('./modules/surveys/surveys.module').then( m => m.SurveysPageModule)
   }
 ];
 

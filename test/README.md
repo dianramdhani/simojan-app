@@ -9,7 +9,7 @@ Pengujian dengan menggunakan mobile Android dan PC dengan OS Ubuntu Mate. Adapun
 ### Pairing bluetooth
 Aktifkan bluetooth di mobile. Kemudian di PC, buka terminal kemudian jalankan perintah berikut
 ```sh
-$ bluetoothctl
+$ sudo bluetoothctl
 [bluetooth]# power on
 [bluetooth]# agent on
 [bluetooth]# scan on
