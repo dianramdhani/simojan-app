@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { from, Observable, of, Subject, BehaviorSubject } from 'rxjs';
+import { from, Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Bluetooth } from '@data/scheme/bluetooth';
@@ -45,7 +45,7 @@ export class DeviceService {
           console.log(parse);
           this.dataSurvey.next(parse);
         } catch (error) {
-          console.log('PARSING DATA SURVEY ERROR!', error);
+          console.error('PARSING DATA SURVEY ERROR!', error);
           // this.notificationService.toast('PARSING DATA SURVEY ERROR!');
         }
         console.log(data);
@@ -69,7 +69,7 @@ export class DeviceService {
         }),
         catchError(err => {
           this.lastDevice.next(null);
-          console.log('CONNECT ERROR', err);
+          console.error('CONNECT ERROR', err);
           this.notificationService.toast('Connection failed. Please try again!');
           return of(false);
         })
@@ -98,6 +98,7 @@ export class DeviceService {
     return from(this.bluetoothSerial.write(command))
       .pipe(
         catchError(err => {
+          console.error('COMMAND FAILED', err);
           this.notificationService.toast(`Command failed - ${err}`);
           return of(false);
         }),

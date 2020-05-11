@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { SurveysPageRoutingModule } from './surveys-routing.module';
-
 import { SurveysPage } from './surveys.page';
 
 @NgModule({
@@ -13,8 +12,12 @@ import { SurveysPage } from './surveys.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    SurveysPageRoutingModule
+    SurveysPageRoutingModule,
+    Ng2SearchPipeModule
   ],
-  declarations: [SurveysPage]
+  declarations: [SurveysPage],
+  providers:[
+    DatePipe
+  ]
 })
-export class SurveysPageModule {}
+export class SurveysPageModule { }
