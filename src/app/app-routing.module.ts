@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'dashboard-bak',
-    loadChildren: () => import('./modules/dashboard-bak/dashboard.module').then( m => m.DashboardPageModule)
-  },
-  {
     path: 'dashboard',
     loadChildren: () => import('./modules/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },

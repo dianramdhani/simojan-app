@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { DataSurvey } from '@data/scheme/data-survey';
 import { SurveyService } from '@data/services/survey.service';
@@ -13,9 +13,11 @@ import { EventService } from '@data/services/event.service';
   templateUrl: './survey-running.component.html',
   styleUrls: ['./survey-running.component.scss'],
 })
-export class SurveyRunningComponent implements OnInit {
+export class SurveyRunningComponent implements OnInit, OnDestroy {
   dataSurveyObs: Observable<DataSurvey>;
   eventStatusObs: Observable<boolean>;
+  dataSurveySub: Subscription;
+  eventStatusSub: Subscription;
 
   constructor(
     private surveyService: SurveyService,
@@ -28,9 +30,14 @@ export class SurveyRunningComponent implements OnInit {
 
   ngOnInit() {
     this.dataSurveyObs = this.surveyService.getData();
-    this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
+    this.dataSurveySub = this.dataSurveyObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
     this.eventStatusObs = this.eventService.isRunning();
-    this.eventStatusObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
+    this.eventStatusSub = this.eventStatusObs.subscribe(() => setTimeout(() => this.changeRef.detectChanges(), 10));
+  }
+
+  ngOnDestroy() {
+    this.dataSurveySub.unsubscribe();
+    this.eventStatusSub.unsubscribe();
   }
 
   async stop() {
