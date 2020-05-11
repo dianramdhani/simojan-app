@@ -13,10 +13,11 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button expand="block" type="submit" [disabled]="!formSetupDevice.valid" (click)="connect()">
-          {{ reconnect? 'Reconnecting...': 'Connect' }}
-        </ion-button>
       </ion-list>
+
+      <ion-button expand="block" type="submit" [disabled]="!formSetupDevice.valid" (click)="connect()">
+        {{ reconnect? 'Reconnecting...': 'Connect' }}
+      </ion-button>
     </form>
   </ion-card-content>
 </ion-card>
