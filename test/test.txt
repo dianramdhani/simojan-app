@@ -1,6 +1,15 @@
 JSON receive:
-{"name":"Survey 1","ts":"2020-05-08T03:24:30Z","gps":{"lat":382,"lng":357},"acc":584,"conn":true}
+When survey isn't running.
+{"name":"<survey_name>","ts":"2020-05-12T06:43:50Z","gps":{"lat":627,"lng":58},"acc":461,"conn":true,"eventStatus":false,"eventData":{}}
+
+When survey is running.
+{"name":"<survey_name>","ts":"2020-05-12T06:45:48Z","gps":{"lat":929,"lng":725},"acc":557,"conn":true,"eventStatus":true,"eventData":{"name":"<event_name>"}}
 
 JSON send event:
-{"command":"SURVEY_START","data":{"name":"Survey 1"}}
+Start/Stop survey.
+{"command":"SURVEY_START","data":{"name":"<survey_name>"}}
 {"command":"SURVEY_STOP","data":{}}
+
+Start/Stop event.
+{"command":"EVENT_START","data":{"name":"<event_name>"}}
+{"command":"EVENT_STOP","data":{}}
