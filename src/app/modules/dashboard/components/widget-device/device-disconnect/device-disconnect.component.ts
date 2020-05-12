@@ -48,7 +48,7 @@ export class DeviceDisconnectComponent implements OnInit {
   }
 
   connect() {
-    const { bluetooth } = this.formSetupDevice.value
+    const { bluetooth } = this.formSetupDevice.value;
     return this.deviceService.connect(bluetooth).toPromise();
   }
 }

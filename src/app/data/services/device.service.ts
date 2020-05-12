@@ -69,6 +69,7 @@ export class DeviceService {
         }),
         catchError(err => {
           this.lastDevice.next(null);
+          this.storageService.remove(this.storageService.DEVICE_KEY);
           console.error('CONNECT ERROR', err);
           this.notificationService.toast('Connection failed. Please try again!');
           return of(false);
