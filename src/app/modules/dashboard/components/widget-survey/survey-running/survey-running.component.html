@@ -1,0 +1,54 @@
+<ion-card *ngIf="dataSurveyObs | async as dataSurvey">
+  <ion-card-header>
+    <ion-card-title>Survey Running</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-text>{{ dataSurvey.name }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Time</ion-label>
+        <ion-text>{{ dataSurvey.ts }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Accelerometer</ion-label>
+        <ion-text>{{ dataSurvey.acc }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Internet Connection</ion-label>
+        <ion-text>{{ dataSurvey.conn }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>GPS Latitude</ion-label>
+        <ion-text>{{ dataSurvey.gps.lat }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>GPS Longitude</ion-label>
+        <ion-text>{{ dataSurvey.gps.lng }}</ion-text>
+      </ion-item>
+    </ion-list>
+
+    <ng-container *ngIf="eventStatusObs | async as eventStatus; else createEventBtn">
+      <ion-list>
+        <ion-list-header>
+          Event Running
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Event Name</ion-label>
+          <ion-text>{{ dataSurvey.eventData.name }}</ion-text>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" color="danger" (click)="stopEvent()">Stop Event</ion-button>
+    </ng-container>
+
+    <ion-button expand="block" color="danger" (click)="stop()">
+      Stop Survey
+    </ion-button>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #createEventBtn>
+  <ion-button expand="block" (click)="createEvent()">Create Event</ion-button>
+</ng-template>

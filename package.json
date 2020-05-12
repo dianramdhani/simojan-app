@@ -10,7 +10,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ionic cap run android -l --address=172.20.10.6"
+    "dev": "ionic cap run android -l --external --address=172.20.10.6",
+    "deploy": "ionic build && ionic cap copy android && ionic cap open android",
+    "connect": "adb kill-server && adb connect 172.20.10.13:5555"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +31,7 @@
     "@ionic/angular": "^5.0.0",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
     "core-js": "^2.5.4",
+    "ng2-search-filter": "^0.5.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

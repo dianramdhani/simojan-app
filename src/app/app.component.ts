@@ -19,6 +19,11 @@ export class AppComponent implements OnInit {
       icon: 'mail'
     },
     {
+      title: 'Dashboard Backup',
+      url: '/dashboard-bak',
+      icon: 'mail'
+    },
+    {
       title: 'Inbox',
       url: '/folder/Inbox',
       icon: 'mail'
