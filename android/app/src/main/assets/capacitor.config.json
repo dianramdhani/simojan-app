@@ -8,8 +8,9 @@
   "linuxAndroidStudioPath": "/home/dian/Documents/android-studio/bin/studio.sh",
   "server": {
     "url": "http://172.20.10.6:8100",
-    "cleartext": true,
-    "originalUrl": "http://172.20.10.6:8100",
-    "originalCleartext": true
+    "cleartext": true
+  },
+  "android": {
+    "usesCleartextTraffic": true
   }
 }
