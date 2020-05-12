@@ -5,7 +5,8 @@ Pengujian dengan menggunakan mobile Android dan PC dengan OS Ubuntu Mate. Adapun
 - Aktifkan bluetooth command server
 - Mengirim data dari ubuntu ke mobile
 - Menerima data dari mobile ke ubuntu
-Adapun untuk format data dapat dilihat di file test.txt.
+
+Adapun untuk format data dapat dilihat di file test.txt .
 
 ### Pairing bluetooth
 Aktifkan bluetooth di mobile. Kemudian di PC, buka terminal kemudian jalankan perintah berikut
