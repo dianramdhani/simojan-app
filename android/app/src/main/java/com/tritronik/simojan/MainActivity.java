@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.tritronik.simojan;
 
 import android.os.Bundle;
 

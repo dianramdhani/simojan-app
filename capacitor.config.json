@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "simojan-app",
+  "appId": "com.tritronik.simojan",
+  "appName": "SIMOJAN",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
@@ -8,6 +8,8 @@
   "linuxAndroidStudioPath": "/home/dian/Documents/android-studio/bin/studio.sh",
   "server": {
     "url": "http://172.20.10.6:8100",
-    "cleartext": true
+    "cleartext": true,
+    "originalUrl": "http://172.20.10.6:8100",
+    "originalCleartext": true
   }
 }
