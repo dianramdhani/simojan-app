@@ -5,9 +5,5 @@
   "npmClient": "npm",
   "webDir": "www",
   "cordova": {},
-  "linuxAndroidStudioPath": "/home/dian/Documents/android-studio/bin/studio.sh",
-  "server": {
-    "url": "http://172.20.10.6:8100",
-    "cleartext": true
-  }
+  "linuxAndroidStudioPath": "/home/dian/Documents/android-studio/bin/studio.sh"
 }

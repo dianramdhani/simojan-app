@@ -28,9 +28,8 @@ export class CreateSurveyComponent implements OnInit {
 
   start() {
     const { name, surveyorName, startCity, startStreetName } = this.formCreateSurvey.value,
-      startDate = (new Date()).toISOString(),
       timer = setTimeout(() => this.notificationService.toast('Start survey failed. Please try again!'), 5000)
-    this.surveyService.start(name, surveyorName, startCity, startDate, startStreetName).toPromise()
+    this.surveyService.start(name, surveyorName, startCity, startStreetName).toPromise()
       .then(startSuccess => {
         if (startSuccess) {
           clearTimeout(timer);

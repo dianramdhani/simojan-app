@@ -37,7 +37,6 @@ export class SurveyService {
     name: string,
     surveyorName: string,
     startCity: string,
-    startDate: string,
     startStreetName: string
   ) {
     const payload = {
@@ -46,7 +45,6 @@ export class SurveyService {
         name,
         surveyorName,
         startCity,
-        startDate,
         startStreetName
       }
     };
