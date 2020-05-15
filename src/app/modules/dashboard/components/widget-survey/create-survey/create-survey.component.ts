@@ -19,14 +19,18 @@ export class CreateSurveyComponent implements OnInit {
 
   ngOnInit() {
     this.formCreateSurvey = new FormGroup({
-      name: new FormControl(null, Validators.required)
+      name: new FormControl(null, Validators.required),
+      surveyorName: new FormControl(null, Validators.required),
+      startCity: new FormControl(null, Validators.required),
+      startStreetName: new FormControl(null, Validators.required)
     });
   }
 
   start() {
-    const { name } = this.formCreateSurvey.value,
+    const { name, surveyorName, startCity, startStreetName } = this.formCreateSurvey.value,
+      startDate = (new Date()).toISOString(),
       timer = setTimeout(() => this.notificationService.toast('Start survey failed. Please try again!'), 5000)
-    this.surveyService.start(name).toPromise()
+    this.surveyService.start(name, surveyorName, startCity, startDate, startStreetName).toPromise()
       .then(startSuccess => {
         if (startSuccess) {
           clearTimeout(timer);

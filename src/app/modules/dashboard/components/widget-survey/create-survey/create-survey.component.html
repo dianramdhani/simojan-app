@@ -6,8 +6,20 @@
     <form [formGroup]="formCreateSurvey">
       <ion-list>
         <ion-item>
-          <ion-label position="stacked">Name</ion-label>
+          <ion-label position="stacked">Survey Name</ion-label>
           <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Surveyor Name</ion-label>
+          <ion-input type="text" formControlName="surveyorName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input type="text" formControlName="startCity"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Street</ion-label>
+          <ion-input type="text" formControlName="startStreetName"></ion-input>
         </ion-item>
         <ion-button expand="block" type="submit" [disabled]="!formCreateSurvey.valid" (click)="start()">
           Start Survey

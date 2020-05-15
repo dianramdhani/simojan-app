@@ -33,10 +33,22 @@ export class SurveyService {
     return this.deviceService.dataSurvey.asObservable();
   }
 
-  start(name: string) {
+  start(
+    name: string,
+    surveyorName: string,
+    startCity: string,
+    startDate: string,
+    startStreetName: string
+  ) {
     const payload = {
       command: 'SURVEY_START',
-      data: { name }
+      data: {
+        name,
+        surveyorName,
+        startCity,
+        startDate,
+        startStreetName
+      }
     };
     return this.deviceService.send(this.generatorService.message(payload));
   }
