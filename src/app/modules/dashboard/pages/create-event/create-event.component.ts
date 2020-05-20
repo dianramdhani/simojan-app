@@ -21,13 +21,14 @@ export class CreateEventComponent implements OnInit {
 
   ngOnInit() {
     this.formCreateEvent = new FormGroup({
-      name: new FormControl(null, Validators.required)
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required)
     });
   }
 
   startEvent() {
-    const { name } = this.formCreateEvent.value;
-    this.eventService.start(name)
+    const { name, description } = this.formCreateEvent.value;
+    this.eventService.start(name, description)
       .subscribe(() => {
         this.notificationService.toast('Event start success. Please wait for data event!')
         this.close();

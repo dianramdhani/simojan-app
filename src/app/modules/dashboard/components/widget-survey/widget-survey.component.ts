@@ -36,7 +36,7 @@ export class WidgetSurveyComponent implements OnInit {
         this.ngZone.run(() => {
           clearTimeout(timer);
           this.runningStatus = runningStatus;
-          timer = setTimeout(() => this.runningStatus = false, 5000);
+          timer = setTimeout(() => this.runningStatus = false, 32000);
         });
       });
   }

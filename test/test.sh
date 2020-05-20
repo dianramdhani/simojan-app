@@ -5,5 +5,5 @@ do
 	myCmd=$(printf "echo '{\"name\":\"Survey 1\",\"ts\":\"%s\",\"gps\":{\"lat\":%s,\"lng\":%s},\"acc\":%s,\"conn\":true,\"eventStatus\":false,\"eventData\":{}}\n' > /dev/rfcomm0" $now $((1 + RANDOM % 1000)) $((1 + RANDOM % 1000)) $((1 + RANDOM % 1000)))
 	eval $myCmd
 	echo $myCmd
-	sleep 1
+	sleep 30
 done

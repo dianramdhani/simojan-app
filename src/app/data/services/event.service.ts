@@ -23,10 +23,16 @@ export class EventService {
       );
   }
 
-  start(name: string) {
+  start(
+    name: string,
+    description: string
+  ) {
     const payload = {
       command: 'EVENT_START',
-      data: { name }
+      data: {
+        name,
+        description
+      }
     };
     return this.deviceService.send(this.generatorService.message(payload));
   }
